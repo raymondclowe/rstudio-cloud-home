@@ -1,0 +1,64 @@
+
+```{r}
+library(tidyverse)
+```
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut ))
+```
+```{r}
+
+```
+
+```{r}
+diamonds %>%
+```
+
+
+```{r}
+count(cut)
+```
+
+```{r}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), bins = 2.)
+```
+```{r}
+smaller <- diamonds %>%
+  filter(carat < 3)
+```
+
+```{r}
+smaller
+
+```
+```{r}
+ggplot(data = smaller, mapping = aes(x = carat, color = cut )) +
+  geom_histogram(binwidth = 0.01)
+```
+```{r}
+ggplot(data = diamonds, mapping = aes(x = carat, color = cut )) +
+  geom_freqpoly(binwidth = 0.1)
+```
+# Page 86
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+ggplot(data = smaller, mapping = aes(x = carat)) +
+  geom_histogram(binwidth = 0.01)
+```
+
+
+
+
+
+
+
+
