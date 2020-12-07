@@ -13,10 +13,18 @@ ggplot(hkcovid) + aes(x = lower.hk.resident, group = lower.hk.resident, color = 
 hkcovidagemodel <- lm(hkcovid$Age ~ hkcovid$Case.no.)
 plot(hkcovidagemodel)
 
+hkcovid <- mutate(hkcovid, Report.Date.Date = parse_date(Report.date, "%d/%m/%Y"))
 hkcovid <- mutate(hkcovid, Onset.Date.Date = parse_date(Date.of.onset, "%d/%m/%y"))
 hkcovid <- mutate(hkcovid, lower.hk.resident = tolower(HK.Non.HK.resident))
 hkcovid$lower.hk.resident <- as.factor(hkcovid$lower.hk.resident)
 hkcovid$Hospitalised.Discharged.Deceased <- as.factor(hkcovid$Hospitalised.Discharged.Deceased)
 
+# actual
 hkcovid %>% group_by(Report.Date.Date, Gender) %>% add_tally() %>% ggplot(.) + aes(y = n, x = Report.Date.Date, color = Gender) + geom_point()
 
+library("scales")
+# actual with trend
+hkcovid %>% group_by(Report.Date.Date, Gender) %>% add_tally() %>% ggplot(.) + aes(y = n, x = Report.Date.Date) + geom_line() + geom_smooth() + scale_y_continuous(limit=c(10,NA),oob=squish)
+
+# prediction
+hkcovid %>% group_by(Report.Date.Date, Gender) %>% add_tally() %>% ggplot(.) + aes(y = n, x = Report.Date.Date) + geom_line() + geom_smooth(fullrange = TRUE) + scale_y_continuous(limit=c(10,NA),oob=squish) + scale_x_date(limits = c(as.Date("2020-01-02"), as.Date("2022-06-02")))
