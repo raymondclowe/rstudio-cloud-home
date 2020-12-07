@@ -62,3 +62,9 @@ ggplot(data = smaller, mapping = aes(x = carat)) +
 
 
 
+
+
+```{r}
+
+```
+
