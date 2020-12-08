@@ -43,3 +43,4 @@ as_tibble(read.csv('http://www.chp.gov.hk/files/misc/enhanced_sur_covid_19_eng.c
     geom_smooth(fullrange = TRUE) + 
     scale_y_continuous(limit=c(10,NA),oob=squish) + 
     scale_x_date(limits = c(as.Date("2020-01-02"), as.Date("2020-12-31")))
+up in
