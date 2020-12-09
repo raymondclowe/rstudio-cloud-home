@@ -32,15 +32,27 @@ hkcovid %>% group_by(Report.Date.Date, Gender) %>% add_tally() %>% ggplot(.) + a
 
 
 library('scales')
-# in one line
+# in one line - 2020, by gender, points, with trend
 as_tibble(read.csv('http://www.chp.gov.hk/files/misc/enhanced_sur_covid_19_eng.csv')) %>% 
   mutate(Report.Date.Date = parse_date(Report.date, "%d/%m/%Y")) %>% 
   group_by(Report.Date.Date, Gender) %>%
   add_tally() %>%
   ggplot(.) + 
-    aes(y = n, x = Report.Date.Date) + 
-    geom_jitter() + 
+    aes(y = n, x = Report.Date.Date, color = Gender) + 
+    geom_point() + 
     geom_smooth(fullrange = TRUE) + 
     scale_y_continuous(limit=c(1,NA),oob=squish) + 
     scale_x_date(limits = c(as.Date("2020-01-01"), as.Date("2020-12-10")))
+
+# in one line - 2020, total, line, with trend
+as_tibble(read.csv('http://www.chp.gov.hk/files/misc/enhanced_sur_covid_19_eng.csv')) %>% 
+  mutate(Report.Date.Date = parse_date(Report.date, "%d/%m/%Y")) %>% 
+  group_by(Report.Date.Date) %>%
+  add_tally() %>%
+  ggplot(.) + 
+  aes(y = n, x = Report.Date.Date) + 
+  geom_line() + 
+  geom_smooth(fullrange = TRUE) + 
+  scale_y_continuous(limit=c(1,NA),oob=squish) + 
+  scale_x_date(limits = c(as.Date("2020-01-01"), as.Date("2020-12-10")))
 
