@@ -38,9 +38,9 @@ as_tibble(read.csv('http://www.chp.gov.hk/files/misc/enhanced_sur_covid_19_eng.c
   group_by(Report.Date.Date, Gender) %>%
   add_tally() %>%
   ggplot(.) + 
-    aes(y = n, x = Report.Date.Date) + 
+    aes(y = n, x = Report.Date.Date, color = Gender) + 
     geom_jitter() + 
     geom_smooth(fullrange = TRUE) + 
     scale_y_continuous(limit=c(1,NA),oob=squish) + 
-    scale_x_date(limits = c(as.Date("2020-01-01"), as.Date("2020-12-10")))
+    scale_x_date(limits = c(as.Date("2020-01-01"), as.Date("2020-12-12")))
 
